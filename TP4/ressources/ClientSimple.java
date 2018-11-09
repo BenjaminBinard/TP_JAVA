@@ -15,7 +15,7 @@ public class ClientSimple {
 
 /**
  * Constructeur par défaut
- * Les param�tres sont initialisés "en dur"
+ * Les paramétres sont initialisés "en dur"
  */
    public ClientSimple() {
       //initialisations
