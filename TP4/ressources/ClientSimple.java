@@ -3,36 +3,36 @@ import java.net.*;
 
 /**
  * Classe ClientSimple
- * Cette classe permet de créer un client pour communiquer avec un serveur TCP
+ * Cette classe permet de crÃ©er un client pour communiquer avec un serveur TCP
  * @see ServeurSimple
- * @version 1.0 
+ * @version 1.0
  */
 public class ClientSimple {
 
    private InetAddress hote;
    private int port;
    private Socket socket;
-   
+
 /**
- * Constructeur par défaut
- * Les paramètres sont initialisés "en dur"
+ * Constructeur par dÃ©faut
+ * Les paramï¿½tres sont initialisÃ©s "en dur"
  */
    public ClientSimple() {
       //initialisations
       this.hote = null;
       this.port = 8888;
       this.socket = null;
-      //recuperation de l'adresse IP du serveur (votre machine)   
+      //recuperation de l'adresse IP du serveur (votre machine)
       try {
          hote = InetAddress.getLocalHost();
-      } 
+      }
       catch (UnknownHostException e) {}
-          
-      try { 
+
+      try {
          socket = new Socket(hote, port);
-         System.out.println("Connecté au serveur: " + socket.getInetAddress() + ":" + socket.getPort());
-         //l'objet input contient le texte tapé sur la console
-         BufferedReader input = new BufferedReader(new InputStreamReader(System.in)); 
+         System.out.println("ConnectÃ© au serveur: " + socket.getInetAddress() + ":" + socket.getPort());
+         //l'objet input contient le texte tapÃ© sur la console
+         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
          //l'objet output est ce qui transmis sur la socket
          PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
          String message;
@@ -41,19 +41,18 @@ public class ClientSimple {
             message = input.readLine();
             output.println(message);
          }
-      } 
+      }
       catch(IOException e) {}
       try {
-       //fermeture de la socket      
+       //fermeture de la socket
          socket.close();
-      } 
+      }
       catch(IOException e) {}
-   
+
    }
 
    public static void main( String [] args ) {
       new ClientSimple();
    }
-   
-}
 
+}
