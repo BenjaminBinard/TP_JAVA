@@ -17,19 +17,20 @@ public class ClientSimple {
  * Constructeur par défaut
  * Les paramétres sont initialisés "en dur"
  */
-   public ClientSimple() {
+   public ClientSimple(String hote, String port) {
       //initialisations
+      this.port = atoi(port);
       this.hote = null;
-      this.port = 8888;
       this.socket = null;
+      int i;
       //recuperation de l'adresse IP du serveur (votre machine)
       try {
-         hote = InetAddress.getLocalHost();
+         this.hote = InetAddress.getByName(hote);
       }
       catch (UnknownHostException e) {}
 
       try {
-         socket = new Socket(hote, port);
+         socket = new Socket(this.hote, this.port);
          System.out.println("Connecté au serveur: " + socket.getInetAddress() + ":" + socket.getPort());
          //l'objet input contient le texte tapé sur la console
          BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -40,6 +41,14 @@ public class ClientSimple {
          while(true) {
             message = input.readLine();
             output.println(message);
+            if (message.length() >= 4) {
+              if(message.charAt(0)=='S' & message.charAt(1)=='T' & message.charAt(2)=='O' & message.charAt(3)=='P'){
+                output.println(message + "Arret en cours ...\n");
+                System.out.println("Arret !\n");
+                System.exit(1);
+                socket.close();
+              }
+            }
          }
       }
       catch(IOException e) {}
@@ -51,8 +60,23 @@ public class ClientSimple {
 
    }
 
+   public int atoi(String texte){
+     int i;
+     int resultat;
+     resultat = 1000*(texte.charAt(0)-48) + 100*(texte.charAt(1)-48) + 10*(texte.charAt(2)-48) + (texte.charAt(3)-48);
+     System.out.println(resultat);
+     return resultat;
+   }
+
    public static void main( String [] args ) {
-      new ClientSimple();
+    if(args[0]!=null && args[1]!=null){
+      System.out.println(args[0]+":"+args[1]);
+      new ClientSimple(args[0],args[1]);
+    }else{
+      System.out.println("Il manque des arguments !\n");
+      System.exit(1);
+    }
+
    }
 
 }
