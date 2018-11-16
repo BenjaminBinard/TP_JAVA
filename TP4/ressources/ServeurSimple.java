@@ -12,6 +12,7 @@ public class ServeurSimple implements Runnable {
    private ServerSocket socketServeur = null;
    private Socket socket = null;
    private Thread ma_tache;
+   private FenetreServeur maFen;
 
 /**
  * Constructeur par défaut
@@ -19,6 +20,7 @@ public class ServeurSimple implements Runnable {
  */
 
    public ServeurSimple() {
+     this.maFen = new FenetreServeur(600,200);
       try {
          socketServeur = new ServerSocket( port );
          System.out.println("Bonjour, je suis le serveur\nJ'attends des clients sur le port " + socketServeur.getLocalPort());
@@ -45,11 +47,15 @@ public class ServeurSimple implements Runnable {
             if (message == null)
                break;
             System.out.println(message);
+            maFen.maj(message);
          }
          socket.close();
          System.out.println("Le serveur ferme la socket avec le client");
       }
       catch( IOException e ) {}
+   }
+
+   public void ihmInit(){
    }
 
    public static void main( String [] args ) {

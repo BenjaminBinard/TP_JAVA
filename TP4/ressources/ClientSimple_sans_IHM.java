@@ -12,7 +12,6 @@ public class ClientSimple {
    private InetAddress hote;
    private int port;
    private Socket socket;
-   private FenetreClient maFen;
 
 /**
  * Constructeur par défaut
@@ -20,7 +19,6 @@ public class ClientSimple {
  */
    public ClientSimple(String hote, String port) {
       //initialisations
-      maFen = new FenetreClient(600,200);
       this.port = atoi(port);
       this.hote = null;
       this.socket = null;
@@ -34,18 +32,23 @@ public class ClientSimple {
       try {
          socket = new Socket(this.hote, this.port);
          System.out.println("Connecté au serveur: " + socket.getInetAddress() + ":" + socket.getPort());
-         this.maFen.connecte("Connecté au serveur: " + socket.getInetAddress() + ":" + socket.getPort());
          //l'objet input contient le texte tapé sur la console
          BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
          //l'objet output est ce qui transmis sur la socket
          PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
-      	 //acquisition via la fenetre
-         while(true){
-           System.out.println("dans if" + maFen.getMessage());
-           if(maFen.getEnvoi()==true) {
-             output.println(maFen.getMessage());
-             maFen.setEnvoi(false);
-           }
+         String message;
+      	//acquisition via le clavier d'un message et envoi au serveur
+         while(true) {
+            message = input.readLine();
+            output.println(message);
+            if (message.length() >= 4) {
+              if(message.charAt(0)=='S' & message.charAt(1)=='T' & message.charAt(2)=='O' & message.charAt(3)=='P'){
+                output.println(message + "Arret en cours ...\n");
+                System.out.println("Arret !\n");
+                System.exit(1);
+                socket.close();
+              }
+            }
          }
       }
       catch(IOException e) {}
@@ -66,7 +69,14 @@ public class ClientSimple {
    }
 
    public static void main( String [] args ) {
-     ClientSimple monClient = new ClientSimple("localhost","8888");
+    if(args[0]!=null && args[1]!=null){
+      System.out.println(args[0]+":"+args[1]);
+      new ClientSimple(args[0],args[1]);
+    }else{
+      System.out.println("Il manque des arguments !\n");
+      System.exit(1);
+    }
+
    }
 
 }
