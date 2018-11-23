@@ -41,7 +41,7 @@ public class ClientSimple {
          PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
       	 //acquisition via la fenetre
          while(true){
-           System.out.println("dans if" + maFen.getMessage());
+           //System.out.println("dans if" + maFen.getMessage());
            if(maFen.getEnvoi()==true) {
              output.println(maFen.getMessage());
              maFen.setEnvoi(false);
@@ -66,7 +66,8 @@ public class ClientSimple {
    }
 
    public static void main( String [] args ) {
-     ClientSimple monClient = new ClientSimple("localhost","8888");
+     //ClientSimple monClient = new ClientSimple("localhost","8888");
+     ClientSimple monClient = new ClientSimple("172.17.3.23","8888"); // Chez Momo
    }
 
 }

@@ -42,7 +42,7 @@ public class ClientSimple {
             message = input.readLine();
             output.println(message);
             if (message.length() >= 4) {
-              if(message.charAt(0)=='S' & message.charAt(1)=='T' & message.charAt(2)=='O' & message.charAt(3)=='P'){
+              if(message.charAt(0)=='S' & message.charAt(1)=='T' & message.charAt(2)=='O' & message.charAt(3)=='P'){ // Ou bien utiliser "equals"
                 output.println(message + "Arret en cours ...\n");
                 System.out.println("Arret !\n");
                 System.exit(1);
