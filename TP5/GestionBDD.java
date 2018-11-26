@@ -107,6 +107,23 @@ public class GestionBDD{
     }
   }
 
+  public void ajouter(String nouvArticle) {
+        try {
+            Class.forName(this.driverBDD);
+            Connection conn = DriverManager.getConnection(this.urlBDD,this.userBDD, this.mdpBDD);
+            Statement st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            String sql = "INSERT INTO articles (nom, quantite) VALUES (?,'42')";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,nouvArticle);
+            statement.execute();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+
+    }
+
   public ArrayList<ElementBDD> getList(){
     return this.list;
   }
