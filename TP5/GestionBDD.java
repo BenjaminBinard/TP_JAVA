@@ -11,10 +11,8 @@ public class GestionBDD{
   private String userBDD;
   private String mdpBDD;
   private String urlBDD;
-  private Fenetre maFenetre;
 
   public GestionBDD(){
-    maFenetre = new Fenetre(400,800);
     this.list = new ArrayList<ElementBDD>();
     this.driverBDD = "com.mysql.jdbc.Driver";
     this.userBDD = "tpjava";
@@ -47,7 +45,7 @@ public class GestionBDD{
         int quantite = rs.getInt(3);
         list.add(new ElementBDD(nom, quantite)); // ajout
       }
-      imprimerElements(this.list);
+      //imprimerElements(this.list);
     }
     catch (Exception e) {
       System.err.println("Exception: " + e.getMessage());
@@ -107,6 +105,10 @@ public class GestionBDD{
       catch (SQLException e) {
       }
     }
+  }
+
+  public ArrayList<ElementBDD> getList(){
+    return this.list;
   }
 
 }

@@ -1,0 +1,2 @@
+CLASSPATH=$CLASSPATH:/usr/share/java/mysql.jar
+export CLASSPATH

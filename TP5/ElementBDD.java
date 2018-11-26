@@ -26,5 +26,9 @@ public class ElementBDD{
   public void setQuantite(int quantite){
     this.quantite = quantite;
   }
-  
+
+  public String toString(){
+    return this.nom+" : "+this.quantite+" unités.";
+  }
+
 }
